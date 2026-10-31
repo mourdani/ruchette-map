@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ruchette-b — map</title>
+<style>
+  .wrap { max-width: 620px; width: 100%; color: var(--foreground, #111827); font-size: 13.5px; line-height: 1.45; }
+  .wrap h1 { font-size: 19px; line-height: 1.2; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .sub { margin: 0 0 10px; color: var(--muted-foreground, #6b7280); font-size: 12px; }
+  .sub code, .box code { font-size: 11.5px; }
+  .key { display: flex; flex-wrap: wrap; gap: 12px; font-size: 11.5px; color: var(--muted-foreground, #6b7280); margin-bottom: 18px; }
+  .key span { display: inline-flex; align-items: center; gap: 5px; }
+  .d { display: inline-block; width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+  .d.ok { background: #22c55e; }
+  .d.par { background: #f59e0b; }
+  .d.gap { background: #ef4444; }
+  .sec { font-size: 11px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted-foreground, #6b7280); margin: 22px 0 8px; }
+  .box { border: 1px solid var(--border, #e5e7eb); border-radius: 12px; padding: 10px 13px 11px; border-left: 3px solid var(--border, #e5e7eb); }
+  .box.a { border-left-color: var(--accent, #0b5fa5); }
+  .box-h { font-weight: 650; font-size: 13.5px; margin-bottom: 6px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent, #0b5fa5); border: 1px solid var(--border, #e5e7eb); border-radius: 999px; padding: 1px 7px; margin-right: 6px; vertical-align: 1px; }
+  .box ul { list-style: none; margin: 0; padding: 0; }
+  .box li { position: relative; padding-left: 15px; margin: 3px 0; color: var(--foreground, #111827); }
+  .box li .d { position: absolute; left: 0; top: 7px; }
+  .box li.n { padding-left: 0; color: var(--muted-foreground, #6b7280); font-size: 12px; }
+  b { font-weight: 600; }
+  .flow { display: flex; align-items: center; gap: 8px; padding: 5px 0 5px 16px; color: var(--muted-foreground, #6b7280); font-size: 11.5px; }
+  .flow .ln { width: 1px; height: 20px; border-left: 1px dashed var(--border, #e5e7eb); margin-left: 5px; }
+  .tree { border-left: 1px dashed transparent; }
+  .row { position: relative; padding: 3px 0; font-size: 13px; }
+  .row .m { color: var(--muted-foreground, #6b7280); font-size: 11.5px; margin-left: 6px; }
+  .kids { margin-left: 9px; padding-left: 13px; border-left: 1px dashed var(--border, #e5e7eb); }
+  .kids > .row::before { content: ""; position: absolute; left: -13px; top: 13px; width: 9px; border-top: 1px dashed var(--border, #e5e7eb); }
+  .stat { display: grid; grid-template-columns: 10px 72px 1fr; gap: 8px; align-items: start; margin: 7px 0; font-size: 12.5px; }
+  .stat .d { margin-top: 6px; }
+  .stat .k { font-weight: 600; }
+  .stat .v { color: var(--muted-foreground, #6b7280); }
+  .meta { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--border, #e5e7eb); font-size: 11.5px; color: var(--muted-foreground, #6b7280); }
+  @media (max-width: 430px) {
+    .stat { grid-template-columns: 10px 1fr; }
+    .stat .v { grid-column: 2; }
+  }
+
+  :root { --foreground: #111827; --muted-foreground: #6b7280; --border: #e5e7eb; --accent: #0b5fa5; }
+  @media (prefers-color-scheme: dark) {
+    :root { --foreground: #e5e7eb; --muted-foreground: #9ca3af; --border: #374151; --accent: #7cc0f5; }
+    body { background: #0b1220; }
+  }
+  body { margin: 0; background: #f8fafc; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-text-size-adjust: 100%; }
+  .page { max-width: 660px; margin: 0 auto; padding: 30px 18px 56px; }
+  .src { margin-top: 22px; font-size: 11.5px; color: var(--muted-foreground, #6b7280); }
+  .src a { color: inherit; }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="wrap">
+  <h1>ruchette-b</h1>
+  <p class="sub">Hive management for beekeepers — React SPA on Supabase. Private repo <code>mourdani/ruchette-b</code>, live at ruchette.vercel.app, French UI.</p>
+  <div class="key">
+    <span><i class="d ok"></i>shipped</span>
+    <span><i class="d par"></i>partial</span>
+    <span><i class="d gap"></i>missing</span>
+  </div>
+
+  <div class="sec">1 · How a tap travels</div>
+
+  <div class="box a">
+    <div class="box-h"><span class="badge">browser</span>Installable PWA</div>
+    <ul>
+      <li class="n">React 19 + Vite · React Router, 13 URL routes · TanStack Query cache</li>
+      <li class="n">12 intervention forms, each lazily imported on open</li>
+      <li><i class="d par"></i>IndexedDB queue — replays only <b>tasks</b> + <b>interventions</b> after reconnect</li>
+      <li><i class="d ok"></i>Service worker, 34 precached assets, works offline as a shell</li>
+    </ul>
+  </div>
+
+  <div class="flow"><span class="ln"></span>supabase-js → anon key + user JWT … RLS decides every row</div>
+
+  <div class="box">
+    <div class="box-h"><span class="badge">supabase</span>Postgres + Auth + Storage</div>
+    <ul>
+      <li><i class="d ok"></i>Email/password auth, confirmation redirects stay in the origin env</li>
+      <li><i class="d ok"></i>11 tables, RLS on all · owner / editor / viewer roles</li>
+      <li><i class="d ok"></i>Edge function <code>send-apiary-invite</code></li>
+      <li><i class="d gap"></i>Storage: 3 private buckets exist, <b>zero client code</b> touches them</li>
+    </ul>
+  </div>
+
+  <div class="flow"><span class="ln"></span>static bundle</div>
+
+  <div class="box">
+    <div class="box-h"><span class="badge">vercel</span>Hono shell</div>
+    <ul>
+      <li class="n"><code>api/boot.ts</code> serves the built SPA + fallback; <code>/api/*</code> returns 404</li>
+      <li><i class="d gap"></i>No CI — tests, lint and typecheck never run on push</li>
+    </ul>
+  </div>
+
+  <div class="flow"><span class="ln"></span>only place the browser talks to a third party</div>
+
+  <div class="box">
+    <div class="box-h"><span class="badge">outside</span>Open-Meteo</div>
+    <ul>
+      <li class="n">Apiary place name → coordinates (stored on the apiary) → forecast. No account id or hive data leaves.</li>
+    </ul>
+  </div>
+
+  <div class="sec">2 · Domain model — one apiary, many hives</div>
+
+  <div class="tree">
+    <div class="row"><b>apiaries</b><span class="m">name, coords, owner_id</span></div>
+    <div class="kids">
+      <div class="row"><b>apiary_members</b><span class="m">owner · editor · viewer</span></div>
+      <div class="row"><b>apiary_invites</b><span class="m">→ /invitation/:token</span></div>
+      <div class="row"><b>hives</b><span class="m">name, type, frames, queen, material</span></div>
+      <div class="kids">
+        <div class="row"><b>interventions</b><span class="m">12 types, lines + meta jsonb</span></div>
+        <div class="row"><b>weighings</b><span class="m">→ weight chart</span></div>
+        <div class="row"><b>harvests</b><span class="m">honey type, kg, hives_count</span></div>
+        <div class="row"><b>queens</b><span class="m">max 1 current per hive</span></div>
+        <div class="kids">
+          <div class="row"><b>grafting_sessions</b><span class="m">mother queen → cells</span></div>
+        </div>
+      </div>
+      <div class="row"><b>tasks</b><span class="m">apiary or hive scope, remind_at</span></div>
+    </div>
+  </div>
+
+  <div class="sec">3 · Where the work stands</div>
+
+  <div class="stat"><i class="d ok"></i><span class="k">shipped</span><span class="v">auth · RLS + roles · apiary sharing &amp; invites · 12 intervention forms · queens, genealogy &amp; grafting · varroa, feeding and weighing widgets · CSV + PDF export · QR labels · weather · PWA</span></div>
+  <div class="stat"><i class="d par"></i><span class="k">partial</span><span class="v">offline covers 2 of 11 tables · task reminders are in-app only (no push) · 214 green tests but all unit, no E2E</span></div>
+  <div class="stat"><i class="d gap"></i><span class="k">missing</span><span class="v">photo attachments (buckets ready, UI absent) · CI · clean lint (1 error) · web i18n</span></div>
+
+  <div class="src">Static diagram — source: <a href="https://github.com/mourdani/ruchette-map">mourdani/ruchette-map</a></div>
+  <div class="meta">72 commits · main only, no PRs or issues · 15 migrations · 214 tests / 47 files</div>
+</div>
+</div>
+</body>
+</html>
